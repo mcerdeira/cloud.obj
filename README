@@ -3,25 +3,31 @@ CLOUD.OBJ
      One object to rule them all
 =================================
 
-- How many times do you think that getting data from web sites / cloud apps is way too difficult?
-- How many times do you think that, even with webservices, you need to handle oscure libraries or data formats (XML, JSON, etc)?
-- How many times do you think, can't I just use it, with not intermediate steps? (like, learning the api, handling SOAP, REST, etc)
-- How many times do you think, could not it be easy?? could it not be simple???
+- Import all the modules from cloud and forget about downloading, mantaining, etc.
+- You just need one module on your local machine: Cloud.obj
+- You can centralize your modules at your office, via intranet or in the cloud.
 
-YES. IT CAN BE SIMPLE.
 
-Cloud.obj, as a server, just exposes methods like any normal class, but in a new style webmethod.
-Then, as a client, it maps this method to a class.
-Finally, you can use it and interact like any regular class!
+== Yes & No ==
 
-=================================
-Give me some code!
-=================================
+- Yes, is like an RPC.
+- Yes, it serializes objects.
+- No, is not a webservice.
+- No, it does not uses ZeroMQ or any other message queue framework (it is web-based)
+- YES. It is that simple.
+
+
+== But again, how? ==
+
+Cloud.obj, as a server, just exposes modules.
+Then, as a client, it maps them to urls, exposing classes, methods, properties.
+Finally, you can use it and interact like any regular module!
+
+
+== Give me some code! ==
 
 # A simple, example
 
 import cloud
-
 o = cloud.Obj("http://localhost:5555/sys") # Now o is the module sys, from remote
-
 print "The path is ", o.path
