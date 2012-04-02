@@ -1,0 +1,87 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Cloud.obj</title>
+  <meta name="description" content="One Object to rule them all">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Cloud.obj</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">One Object to rule them all</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/mcerdeira/cloud.obj/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/mcerdeira/cloud.obj/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/mcerdeira/cloud.obj" class="code">fork Cloud.obj on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h1>What can i do with cloud.obj?</h1>
+
+<ul>
+<li>Import all the modules from cloud and forget about downloading, mantaining, etc.</li>
+<li>You just need one module on your local machine: Cloud.obj</li>
+<li>You can centralize your modules at your office, via intranet or in the cloud.</li>
+</ul><h3>Yes &amp; No</h3>
+
+<ul>
+<li>Yes, is like an RPC.</li>
+<li>Yes, it serializes objects.</li>
+<li>No, is not a webservice.</li>
+<li>No, it does not uses ZeroMQ or any other message queue framework (it is web-based)</li>
+<li>YES. It is that simple.</li>
+</ul><h3>But again, how?</h3>
+
+<p>Cloud.obj, as a server, just exposes modules.
+Then, as a client, it maps them to urls, exposing classes, methods, properties.
+Finally, you can use it and interact like any regular module!</p>
+
+<h3>Give me some code!</h3>
+
+<pre><code>#A simple, example
+
+import cloud
+o = cloud.Obj("http://localhost:5555/sys") # Now o is the module sys, from remote
+print "The path is ", o.path
+</code></pre>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/mcerdeira" class="avatar"><img src="https://secure.gravatar.com/avatar/fe2d5086a0432586d9c8b95001527e91?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png" width="48" height="48"/></a> <a href="https://github.com/mcerdeira">mcerdeira</a> maintains <a href="https://github.com/mcerdeira/cloud.obj">Cloud.obj</a></p>
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/mcerdeira/cloud.obj/tarball/master" class="tar">tar</a><a href="https://github.com/mcerdeira/cloud.obj/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
