@@ -1,6 +1,6 @@
 =================================
 CLOUD.OBJ
-     Objects in the cloud
+     One object to rule them all
 =================================
 
 - How many times do you think that getting data from web sites / cloud apps is way too difficult?
@@ -15,31 +15,13 @@ Then, as a client, it maps this method to a class.
 Finally, you can use it and interact like any regular class!
 
 =================================
-A practical example:
+Give me some code!
 =================================
 
-This is a Python Class:
+# A simple, example
 
-  >>> book = Books()
+import cloud
 
-  >>> print book.getauthor("The Shinning")
-  Stephen King
+o = cloud.Obj("http://localhost:5555/sys") # Now o is the module sys, from remote
 
-  >>> book.add("Fake book", "Tom None")
-
-  >>> print book.getauthor("Fake book")
-  Tom None
-
-This is a Cloudee web class:
-
-  import cloudobj
-
-  >>> book = cloudobj.get('http://www.site.org/Books()')
-
-  >>> print book.getauthor("The Shinning")
-  Stephen King
-
-  >>> book.add("Fake book", "Tom None")
-
-  >>> print book.getauthor("Fake book")
-  Tom None
+print "The path is ", o.path
