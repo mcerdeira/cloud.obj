@@ -1,0 +1,45 @@
+=================================
+CLOUD.OBJ
+     Objects in the cloud
+=================================
+
+- How many times do you think that getting data from web sites / cloud apps is way too difficult?
+- How many times do you think that, even with webservices, you need to handle oscure libraries or data formats (XML, JSON, etc)?
+- How many times do you think, can't I just use it, with not intermediate steps? (like, learning the api, handling SOAP, REST, etc)
+- How many times do you think, could not it be easy?? could it not be simple???
+
+YES. IT CAN BE SIMPLE.
+
+Cloud.obj, as a server, just exposes methods like any normal class, but in a new style webmethod.
+Then, as a client, it maps this method to a class.
+Finally, you can use it and interact like any regular class!
+
+=================================
+A practical example:
+=================================
+
+This is a Python Class:
+
+  >>> book = Books()
+
+  >>> print book.getauthor("The Shinning")
+  Stephen King
+
+  >>> book.add("Fake book", "Tom None")
+
+  >>> print book.getauthor("Fake book")
+  Tom None
+
+This is a Cloudee web class:
+
+  import cloudobj
+
+  >>> book = cloudobj.get('http://www.site.org/Books()')
+
+  >>> print book.getauthor("The Shinning")
+  Stephen King
+
+  >>> book.add("Fake book", "Tom None")
+
+  >>> print book.getauthor("Fake book")
+  Tom None

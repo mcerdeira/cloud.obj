@@ -1,0 +1,22 @@
+http://www.voidspace.org.uk/python/articles/metaclasses.shtml
+http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python/6581949#6581949
+http://stackoverflow.com/questions/34439/finding-the-methods-an-object-has
+
+
+  >>> MyShinyClass = type('MyShinyClass', (), {}) # returns a class object
+  >>> print Foo
+  <class '__main__.Foo'>
+  >>> print Foo.bar
+  True
+  >>> f = Foo()
+  >>> print f
+  <__main__.Foo object at 0x8a9b84c>
+  >>> print f.bar
+  True
+  
+  
+  >>> FooChild = type('FooChild', (Foo,), {})
+  >>> print FooChild
+  <class '__main__.FooChild'>
+  >>> print FooChild.bar # bar is inherited from Foo
+  True
