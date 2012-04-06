@@ -33,11 +33,7 @@ def _tryimport(lib):
 
 @route('/')
 def default():
-    return static_file('index.html', root = '/static/')
-
-@route('/static/<filename>')
-def static(filename):
-    return static_file(filename, root = '/static/')
+    return static_file('index.html', root = './static/')
 
 @route('/<lib>')
 def import_lib(lib):
