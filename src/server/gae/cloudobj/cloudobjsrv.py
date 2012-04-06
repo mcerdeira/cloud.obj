@@ -6,7 +6,9 @@ __date__ = "$Date: 4/2/2012$"
 __license__ = "GPL v3"
 
 import sys, os, pickle
-from bottle import run, route, error, request, response, get, post, request, debug, static_file, url
+import bottle
+from bottle import run, route, error, request, response, get, post, request, debug, static_file
+from google.appengine.ext.webapp.util import run_wsgi_app
 
 def _import(lib, action):
     """
@@ -31,11 +33,11 @@ def _tryimport(lib):
 
 @route('/')
 def default():
-    return static_file('index.html', root = './static/')
+    return static_file('index.html', root = '/static/')
 
-@route('/static/<ftype>/<filename>')
-def static(ftype, filename):
-    return static_file(filename, root = './static/'+ftype+'/')
+@route('/static/<filename>')
+def static(filename):
+    return static_file(filename, root = '/static/')
 
 @route('/<lib>')
 def import_lib(lib):
@@ -50,15 +52,9 @@ def use_lib(lib, action):
 def error_hdl(error):
     return "<b>Ups, this is bad...</b>"
 
-def start_server(srvport):
+def main():
     debug(True)
-    print '======================================================='
-    print 'Cloud.Obj Server Launched on http://localhost:' + srvport
-    print '======================================================='
-    run(host='localhost', port=srvport)
+    run_wsgi_app(bottle.default_app())
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        sys.exit("Must specify port!")
-    else:
-        start_server(sys.argv[1])
+    main()
