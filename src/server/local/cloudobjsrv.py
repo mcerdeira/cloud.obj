@@ -14,7 +14,11 @@ def _import(lib, action):
     """
     buf =  "def f():\n"
     buf += "    import " + lib + "\n"
-    buf += "    return " + lib + "." + action + "\n"
+    if action == '__str__':
+        buf += "    return str(" + lib + "." + action + "())\n"
+    else:
+        buf += "    return " + lib + "." + action + "\n"
+
     try:
         exec(buf)
         return f()
