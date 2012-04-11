@@ -265,9 +265,13 @@ class Obj(object):
 
     def __getattr__(self, attr):
         if attr:
-            tmpurl = self.url+"/"+attr
-            response = urllib2.urlopen(tmpurl).read()
-            f = pickle.loads(response)
+            global _cache
+            tmpurl = self.url + "/" + attr
+            f = _cache[tmpurl]
+            if not f:
+                response = urllib2.urlopen(tmpurl).read()
+                f = pickle.loads(response)
+                _cache[tmpurl] = f
             return f
         else:
             raise AttributeError
