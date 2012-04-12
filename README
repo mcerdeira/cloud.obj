@@ -26,8 +26,8 @@ Finally, you can use it and interact like any regular module!
 
 == Give me some code! ==
 
-# A simple, example
+#A simple, example
 
 import cloud
-o = cloud.Obj("http://localhost:5555/sys") # Now o is the module sys, from remote
+o = cloud.Obj("http://cloudobj.appspot.com/sys") #o is the module sys
 print "The path is ", o.path
