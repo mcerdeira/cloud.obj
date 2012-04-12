@@ -2,8 +2,8 @@
 
 from src.client import cloud
 
-#url = "http://cloudobj.appspot.com/"
-url = "http://localhost:8080/"
+url = "http://cloudobj.appspot.com/"
+#url = "http://localhost:8080/"
 
 lib = "sys"
 

@@ -75,7 +75,7 @@ class AbstractCache(object):
             return self[k]
         except Exception:
             return d
-    
+
     @property
     def ttl(self):
         return self._ttl
@@ -91,7 +91,7 @@ class AbstractCache(object):
     @abc.abstractmethod
     def store_data(self, k, ttl, v):
         """Set the data and the ttl in to cache.
-        
+
         """
         raise NotImplementedError()
             
@@ -115,7 +115,7 @@ class AbstractCache(object):
         
         """
         raise NotImplementedError()
-        
+
 
 #===============================================================================
 # DICT CACHE
@@ -123,27 +123,33 @@ class AbstractCache(object):
 
 class DictCache(AbstractCache):
     """Implementation of a cache in a memory dictionary
-    
+
     """
     def __init__(self, ttl=60):
         """Creates a new instance
-        
+
         params:
-            
+
             ``ttl``
                 Time to live of the data.
-                
+
         """
         super(DictCache, self).__init__(ttl=ttl)
-        self._ich = collections.OrderedDict()
-        self._ttds = collections.OrderedDict()
-   
+        try:
+            self._ich = collections.OrderedDict()
+            self._ttds = collections.OrderedDict()
+        except AttributeError:
+            #This version of python does not support OrderedDict
+            from ordereddict import OrderedDict
+            self._ich = OrderedDict()
+            self._ttds = OrderedDict()
+
     def store_data(self, k, ttl, v):
         self._ich[k] = v
         self._ttds[k] = (
             time.time() + ttl if ttl != None else None
         )
-        
+
     def retrieve_data(self, k):
         ttd = self._ttds.get(k, 0)
         if ttd == None or time.time() < ttd:
@@ -151,7 +157,7 @@ class DictCache(AbstractCache):
         elif ttd:
             self._ttds.pop(k)
             self._ich.pop(k)
-    
+
     def clear_expired(self):
         for k, ttd in self._ttds.items():
             if ttd != None and ttd < time.time():
@@ -159,7 +165,7 @@ class DictCache(AbstractCache):
                 self._ich.pop(k)
             else:
                 break
-    
+
     def clear(self):
         self._ich.clear()
         self._ttds.clear()
@@ -173,45 +179,45 @@ if memcache:
 
     class MemcachedCache(AbstractCache):
         """Implementation of a memcache for infopython
-        
+
         """
         def __init__(self, hosts, debug=0, ttl=60):
             """Creates a new instance
-            
+
             params:
-                
+
                 ``hosts``
                     A list of *hosts:port* of memcache daemons.
-                
+
                 ``debug``
                     Debug levels of memcache.
-                    
+
                 ``ttl``
                     Time to live of the data.
-                    
+
             """
             super(MemcachedCache, self).__init__(ttl=ttl)
             self._mc = memcache.Client(hosts, debug=debug)
             self._prefix = hashlib.sha1(
                 str(time.time()) + str(id(self))
             ).hexdigest() + "_"
-       
+
         def ping(self):
             """Return *True* if any server is response
-            
+
             """
             try:
                 return bool(self._mc.get_stats())
             except:
                 return False
-       
+
         def store_data(self, k, ttl, v):
             if self.ping():
                 key = self._prefix + k
                 value = pickle.dumps(v)
                 ttl = ttl if ttl != None else 0
                 self._mc.set(key, value, time=ttl)
-            
+
         def retrieve_data(self, k):
             if self.ping():
                 key = self._prefix + k
@@ -219,10 +225,10 @@ if memcache:
                 if value:
                     return pickle.loads(value)
             return None
-        
+
         def clear_expired(self):
             pass
-        
+
         def clear(self):
             if self.ping():
                 self._mc.flush_all()
@@ -233,17 +239,17 @@ if memcache:
 #===============================================================================
 
 class Obj(object):
-    
+
     @staticmethod
     def __new__(cls, *args, **kwargs):
         global _cache
         key = kwargs.get("url") or (args[0] if args else None)
         instance = _cache[key]
         if not instance:
-            instance = super(Obj, cls).__new__(cls, *args, **kwargs)
+            instance = super(Obj, cls).__new__(cls) # , *args, **kwargs) This throws a deprecation warning
             _cache[key] = instance
         return instance
-        
+
     def __init__(self, url):
         self.url = url
         self.lib = urlparse(url).path.replace('/', '')
